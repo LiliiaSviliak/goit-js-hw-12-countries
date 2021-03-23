@@ -19,15 +19,14 @@ function fullRender(searchQuery) {
 
     fetchCountries(searchQuery)
       .then(data =>
-        data.filter(country =>
-          country.name
-            .toLowerCase()
-            .includes(refs.searchInput.value.toLowerCase()),
+        data.filter(country => country.name
+        .toLowerCase()
+        .includes(refs.searchInput.value.toLowerCase()),
         ),
       )
       .then(countriesArray => markupRender(countriesArray))
       .catch(e => {
-        refs.searchInput.value = '';
+        // refs.searchInput.value = '';
         clearUl();
         error({
           title: 'Sorry',
@@ -35,6 +34,7 @@ function fullRender(searchQuery) {
         });
       });
   }
+
 
   function clearUl() {
     if (refs.searchInput.value === '') {
@@ -66,9 +66,9 @@ function fullRender(searchQuery) {
         title: 'Success!',
         text: 'Country info loaded',
       });
-    } else if (countriesArray.length > 10) {
+    } else if (countriesArray.length > 10 || countriesArray.length === 0) {
       info({
-        text: 'Too many matches found. Please enter a more specific query!',
+        text: 'Please enter a more specific query!',
       });
     }
   }
